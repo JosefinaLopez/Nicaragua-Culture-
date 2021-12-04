@@ -1,0 +1,331 @@
+@import url('https://fonts.googleapis.com/css2? familia=Lorayfamilia=Raleway:ital,wght@0,300;0,400;0,500;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
+
+:root{
+    --background: linear-gradient(135deg, #388cdb65 0%, #d1e4f67a 100%);
+    --color-primary:#7287eb;
+    --color-secundary:#fafafa;
+    --boton-padding: 20px 40px;
+}
+body{
+    font-family: 'Times New Roman', Times, serif;
+}
+.container{
+     width: 90%;
+     margin: 0 auto;
+     overflow: hidden;
+     padding: 50px 0;
+     max-width: 1200px;
+}
+.subtitle{
+    color: rgb(19, 136, 146);
+    padding: 1rem;
+    justify-content: center;
+    font-size: 2rem; 
+    margin-bottom: 35px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.hero{
+    height: 100vh;
+    background-image: var(--background),url(/templates/imagenes/portadablog.jpeg);
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-attachment: fixed;
+    background-position:center;
+    position:relative;
+}
+.hero .container{
+   padding: 0%;
+}
+
+.nav{
+    display: flex;
+    justify-content: flex-end;
+    height: 70px;
+    align-items: center;
+    font-weight:700;
+}
+.nav--footer{
+    font-weight: 300;
+    justify-content: flex-start;
+}
+.nav_items{
+    color: #c0eeee;
+    text-decoration: none;
+    margin-right: 28px;
+    padding: 10px 15px;
+    font-weight: inherit;
+}
+.nav_items--cta{
+    border: 1px solid #ffffff ;
+}
+.nav_items--footer{
+    padding: 10px;
+
+}
+.hero_container{
+    display: flex;
+    height: calc(100vh - 70px);
+    align-items: center;
+    color: white;
+}
+.hero_texts{
+    width: 80%;
+    margin-bottom: 50px;
+}
+.hero_title{
+    font-size: 3.2rem;
+}
+.hero_subtitle{
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin: 15px 0;
+}
+.hero_cta{
+ display: inline-block;
+ background: #ffffff;
+ padding: var(--boton-padding);
+ color: var(--color-primary);
+ text-decoration: none;
+ border-radius: 40px;
+}
+.hero_waves{
+    position: absolute;
+    bottom:0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+}
+.categorias{
+    background: #fafafa;
+    border-radius: 1.5rem;
+}
+.categoria__grid{
+    display:grid;
+    width: 100%;
+    height: 100%;
+    grid-template-areas: "imagen1 imagen2 imagen3 imagen4 imagen5";
+    gap: -5px;
+}
+.categorias__title{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1rem;
+    display:initial;
+    color: #fcfcfd;
+
+}
+.categorias__item{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.categorias__img{
+    padding: 0rem;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+.categorias__item:nth-of-type(1){
+    grid-area:imagen1;
+}
+.categorias__item:nth-of-type(2){
+    grid-area:imagen2;
+}
+.categorias__item:nth-of-type(3){
+    grid-area:imagen3;
+}
+.categorias__item:nth-of-type(4){
+    grid-area:imagen4;
+}
+.categorias__item:nth-of-type(5){
+    grid-area:imagen5;
+}
+.categorias__hover{
+    position: absolute;
+    background: #169ba069;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    color:rgb(251, 251, 253);
+    text-align: center;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    transform: translateX(100%);
+    cursor: pointer;
+    transition:transform .3s ease-in-out;
+}
+.categorias__item:hover .categorias__hover{
+    transform: translateX(0%);
+}
+.categorias__icon{
+    margin-top: 10px;
+    font-size:30px;
+}
+/*comentarios y post*/
+/*no encuentroooo el hpta marcoooo*/
+.principal-post{
+    background-color: rgb(80, 185, 255);
+    padding: 1rem;
+    
+  }
+  .publicaciones{
+    width: 70%;
+    height: auto; overflow: hidden;
+    border-radius: 1px solid rgb(20, 20, 20);
+    margin-top:10 px ;
+    background: linear-gradient(aqua);
+  }
+  .post{
+    width: 100%;
+    height: auto;overflow: hidden;
+    padding:7px;
+    background: #fafafd;
+    background: linear-gradient(aqua);
+    border-radius: 10px;
+    
+  }
+  .titulo-post{
+    text-decoration: none;
+  }
+  .parrafo-post{
+    text-justify: auto;
+  }
+  .enlace-post{
+  
+    color: rgb(8, 137, 146);
+    font-size: 22px;
+    font-family:'times new roman';
+    text-decoration: none;
+  }
+ .titulo-post:hover{
+    text-decoration: underline;
+  }
+ .img-post{
+    width: 150px;
+    height: 100px;
+    float:left;
+    margin: 7px 7px 7px 0px;
+    padding: 5px;
+    border: 1px solid rgb(47, 182, 245);
+    border-radius: 5px; 
+  }
+  .boton-post{
+      background-color:aqua;
+      border-radius: 5px;
+  }
+  .principal-post{
+      background-color: aqua;
+    
+  }
+  .title-comentarios-post{
+  font-family: 'Times New Roman', Times, serif;
+  display:flex;
+  margin: 0%;
+  }
+  .container-comentarios,
+  .container-comentarios-request
+  {
+      margin-top: 15px;
+      size: 100%;
+      display: block;
+  }
+  .comentarios,
+  .comentarios-request{
+      display: flex;
+  }
+  .fotoperfil,
+  .fotoperfil-request{
+      width: 125px;
+      height: 50px;   
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+  }
+  .fotoperfil .img
+  .fotoperfil-request .img{
+      width:  100%;
+      height: 100%;
+  }
+  .infocoments,
+  .infocoments-request{
+      margin-left: 15px;
+      background: rgb(231, 227, 227);
+      border-radius: 6%;
+      padding: 10px;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  /*Aqui*/
+  .infocoments .header,
+  .infocoments-request .header{
+      font-size: 30%;
+      justify-content: stretch;
+      padding:10px;
+      color: rgb(33, 140, 148);
+      font-family:'times new roman';
+      text-decoration: none;
+  }
+  .title-coment,
+  .title-coment-request{
+      font-size: 360%;
+
+  }
+  .fecha-coment,
+  .fecha-coment-request{
+      font-size: 310%;
+      color: rgb(89, 98, 180);
+  }
+  .infocoments p,
+  .infocoments-request p{
+      padding: 1px;
+  }
+  .infocoments .footer,
+  .infocoments-request .footer{
+      width: 90%;
+      padding: 1px;
+      display: flex;
+  }
+  .container-comentarios-request{
+      margin-left: 80px;
+      size: 150%;
+  }
+  .escribircomentario{
+      display: flex;
+      margin-top: 2%;
+  }
+  .escribir-comentario{
+      width: 270px;
+      background: rgb(218, 213, 201);
+      border-radius: 10px;
+      display: flex;
+      justify-content:space-between;
+      float: inline-end;
+  }
+  .fotoescribircomentario{
+    width: 40px;
+    height: 40px;   
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+  }
+  
+  @media(max-width: 500px){
+      .nav_items {
+          margin: 0 5 px;
+      }
+      .img-post{
+          height: 130px;
+      }
+  }
+  .offcanvas-header{
+      align-items: center;
+      padding: 0em;
+      justify-content: space-between;
+  }
+  .offcanvasRightLabel{
+      float: inline-end;
+  }

@@ -19,7 +19,7 @@
         background-size:cover;
       }
     </style>
-    <title>Login</title>
+    <title>Register</title>
   </head>
   <body>
    <div class= "container w-50 bg-primary mt-5 rounded shadow">
@@ -31,23 +31,26 @@
            <img src="img/logo.png" width="48" alt="">
          </div>
 
-          <hi2 class="fw-bold text-center py-5">Login</hi2>
+          <hi2 class="fw-bold text-center py-5">Register</hi2>
 
           <form action="#">
             <div class="mb-4">
-             <label for= "user" class="form-label">User</label> 
+             <label for= "user" class="form-label">Nombre de Usuario</label> 
              <input type="user" class="form-control" name="user">
             </div>
             <div class="mb-4">
-              <label for= "password" class="form-label">Password</label> 
+              <label for= "password" class="form-label">Contraseña</label> 
              <input type="password" class="form-control" name="password">
             </div>
+            <div class="mb-4">
+              <label for= "password" class="form-label">Confirmar Contraseña</label> 
+             <input type="password" class="form-control" name="password confirm">
+            </div>
            <div class="d-grid">
-              <button type="submit" class="btn btn-primary">Inicia Sesión</button>
+              <button type="submit" class="btn btn-primary">Registrate</button>
             </div>
             <div class="my-3">
-              <span>¿No tienes una cuenta? ¡Unete a Nosotros! <a href="/register">Registrate</a></span>
-              <span><a href="#">Recuperar Contraseña</a></span>
+              <span>¿Ya tienes una cuenta? <a href="/login">Iniciar sesion</a></span>
             </div>
           </form>
        </div>

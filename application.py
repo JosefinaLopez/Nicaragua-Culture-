@@ -38,30 +38,28 @@ def register():
         confirmation = request.form.get("confirmation")
         
         #declaracion de errores
-        if not username:
-            return apology("Usuario incompleto", 400)
-
-        elif not password:
-            return apology("Ingrese una contraseña", 400)
-
-        elif not confirmation:
-            return apology("Ingrese una confirmación", 400)
-
-        elif password != confirmation:
-            return apology("contraseñas diferentes")
+        if not request.form.get("username"):
+            flash("Ingrese un nombre")
+            return render_template("register.html")
+        elif not request.form.get("password"):
+            flash("Ingrese una contraseña")
+            return render_template("register.html")
+        elif request.form.get("password") != request.form.get("confirmation"):
+            flash("Las contraseñas no coinciden")
+            return render_template("register.html")
 
        #encripta la contraseña
         hash = generate_password_hash(password)
         rows = db.execute("SELECT * FROM usuario WHERE username= :username", username)
 
         if len(rows):
-            return apology("usuario existente ", 400)
+            flash("usuario existente ")
 
         # consula la base de datos para verificar el usuario
         db.execute("INSERT INTO usuario (username, hash) VALUES (username= :username, hash= :hash)", username, hash)
         return redirect("/")
 
-        return apology("Usuario existente")
+        flash("Usuario existente")
 
     else:
         return render_template("register.html")
@@ -78,11 +76,13 @@ def login():
 
         # usuario enviado
         if not request.form.get("username"):
-            return apology("must provide username", 403)
+              flash("Proporcione un usuario")
+              return ("logint.html")
 
         # contraseña enviada
         elif not request.form.get("password"):
-            return apology("must provide password", 403)
+            flash("Proporcione una contraseña")
+            return("login.html")
 
         # base de datos del usuario
         rows = db.execute("SELECT * FROM usuario WHERE username = :username",
@@ -90,7 +90,8 @@ def login():
 
         # Error si el usuario existe o la contra es incorrecta
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
-            return apology("invalid username and/or password", 403)
+            flash("Contraseña o Usuario invalidos")
+            return("login.html")
 
         # recuerda si se ha iniciado sesion previamente
         session["user_id"] = rows[0]["id"]

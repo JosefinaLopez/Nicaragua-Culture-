@@ -33,10 +33,10 @@
 
           <hi2 class="fw-bold text-center py-5">Register</hi2>
 
-          <form action="#">
+          <form action="{{url_for('register')}}" method="post" autocomplete="off">
             <div class="mb-4">
-             <label for= "user" class="form-label">Nombre de Usuario</label> 
-             <input type="user" class="form-control" name="user">
+             <label for= "username" class="form-label">Nombre de Usuario</label> 
+             <input type="username" class="form-control" name="username">
             </div>
             <div class="mb-4">
               <label for= "password" class="form-label">Contraseña</label> 
@@ -44,7 +44,7 @@
             </div>
             <div class="mb-4">
               <label for= "password" class="form-label">Confirmar Contraseña</label> 
-             <input type="password" class="form-control" name="password confirm">
+             <input type="password" class="form-control" name="confirmation">
             </div>
            <div class="d-grid">
               <button type="submit" class="btn btn-primary">Registrate</button>

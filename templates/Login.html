@@ -33,10 +33,10 @@
 
           <hi2 class="fw-bold text-center py-5">Login</hi2>
 
-          <form action="#">
+          <form action="{{url_for('login')}}" method="post">
             <div class="mb-4">
-             <label for= "user" class="form-label">User</label> 
-             <input type="user" class="form-control" name="user">
+             <label for= "username" class="form-label">User</label> 
+             <input type="username" class="form-control" name="username">
             </div>
             <div class="mb-4">
               <label for= "password" class="form-label">Password</label> 

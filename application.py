@@ -1,19 +1,24 @@
-from flask import Flask, render_template, redirect, url_for, request, session, flash
-import psycopg2 #pip install psycopg2
-import psycopg2.extras
+import os, json
+from flask import Flask, render_template, redirect, url_for, request, session, flash,jsonify
+from flask_session import Session
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
 from werkzeug.exceptions import default_exceptions
 from werkzeug.security import check_password_hash, generate_password_hash
-
 app = Flask(__name__)
 
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
+if not os.getenv("DATABASE_URL"):
+    raise RuntimeError("DATABASE_URL is not set")
+
+    #condigurar la session
+    app.config["SESSION_PERMENT"]= False
+    app.config["SESSION_TYPE"] = "filesystem"
+    Session(app)
+    #definiciones de base de datos
+    engine = create_engine(os.getenv("DATABASE_URL"))
+db = scoped_session(sessionmaker(bind=engine))
 
 
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-
-
-@app.route("/home")
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -24,77 +29,84 @@ def logout():
     return redirect("register")
 
 
-@app.route("/register", methods=["GET","POST"])
+@app.route("/register", methods=["GET", "POST"])
 def register():
-    if request.method == "POST":
-        # ASEGURAR ENVIO DEL USER
-        if not request.form.get("username"):
-            flash("Ingrese un nombre")
-            return render_template("register.html")
-        elif not request.form.get("password"):
-            flash("Ingrese una contraseña")
-            return render_template("register.html")
-        elif request.form.get("password") != request.form.get("confirmation"):
-            flash("Las contraseñas no coinciden")
-            return render_template("register.html")
+    """Register user"""                                       
+    if (request.method == "POST"):
+        # declaracion de las variables
+        username = request.form.get("username")
+        password = request.form.get("password")
+        confirmation = request.form.get("confirmation")
+        
+        #declaracion de errores
+        if not username:
+            return apology("Usuario incompleto", 400)
 
+        elif not password:
+            return apology("Ingrese una contraseña", 400)
 
-        # GUARDAR DATOS
-        user = request.form.get("username")
-        passw = request.form.get("password")
-        # REGISTRAR NUEVO USUARIO
+        elif not confirmation:
+            return apology("Ingrese una confirmación", 400)
 
-        result = db.execute("INSERT INTO users (username,password) VALUES (:username, :password)",
-                            username = user, password = generate_password_hash(passw)
-                            )
-        # VERIFICANDO SI EL USUARIO YA EXISTE
-        if not result:
-            flash("El usuario ya existe")
-            return render_template("register.html")
+        elif password != confirmation:
+            return apology("contraseñas diferentes")
 
-        # ALMACENANDO EN LA SESSION
-        session["user_id"] = result
+       #encripta la contraseña
+        hash = generate_password_hash(password)
+        rows = db.execute("SELECT * FROM usuario WHERE username= :username", username)
 
+        if len(rows):
+            return apology("usuario existente ", 400)
+
+        # consula la base de datos para verificar el usuario
+        db.execute("INSERT INTO usuario (username, hash) VALUES (username= :username, hash= :hash)", username, hash)
         return redirect("/")
+
+        return apology("Usuario existente")
+
     else:
         return render_template("register.html")
 
-
-
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
-# Forget any user_id
+    """Log user in"""
+
+    #xd
     session.clear()
 
-    # User reached route via POST (as by submitting a form via POST)
+    # usuario es pedido por me metodo post
     if request.method == "POST":
 
-        # Ensure username was submitted
+        # usuario enviado
         if not request.form.get("username"):
             return apology("must provide username", 403)
 
-        # Ensure password was submitted
+        # contraseña enviada
         elif not request.form.get("password"):
             return apology("must provide password", 403)
 
-        # Query database for username
-        rows = db.execute("SELECT * FROM users WHERE username = :username",
+        # base de datos del usuario
+        rows = db.execute("SELECT * FROM usuario WHERE username = :username",
                           username=request.form.get("username"))
 
-        # Ensure username exists and password is correct
+        # Error si el usuario existe o la contra es incorrecta
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
             return apology("invalid username and/or password", 403)
 
-        # Remember which user has logged in
+        # recuerda si se ha iniciado sesion previamente
         session["user_id"] = rows[0]["id"]
 
-        # Redirect user to home page
+        # reedireccion al index
         flash("!Sesión iniciada!")
         return redirect("/")
 
-# User reached route via GET (as by clicking a link or via redirect)
+# Mediante al get reedirige al login si no estan correctos los datos
     else:
         return render_template("login.html")
+
 @app.route("/galeria")
 def galeria():  
-     return render_template("galeria")      
+     return render_template("galeria")   
+
+if __name__ == "__main__":
+        app.run(port=3300,debug=True)

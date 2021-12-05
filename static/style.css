@@ -296,6 +296,7 @@ body{
   .escribircomentario{
       display: flex;
       margin-top: 2%;
+      padding: inherit;
   }
   .escribir-comentario{
       width: 270px;
@@ -327,5 +328,5 @@ body{
       justify-content: space-between;
   }
   .offcanvasRightLabel{
-      float: inline-end;
+      float: right;
   }

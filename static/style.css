@@ -27,7 +27,7 @@ body{
 }
 .hero{
     height: 100vh;
-    background-image: var(--background),url("/static/portadablog.jpeg");
+    background-image: var(--background),url("/static/portada4.jpg.crdownload");
     background-repeat: no-repeat;
     background-size:cover;
     background-attachment: fixed;
@@ -38,24 +38,32 @@ body{
    padding: 0%;
 }
 .hero_texts{
-    width: 80%;
+    width: 90%;
     margin-bottom: 50px;
+    font-family: 'Times New Roman', Times, serif;
+    color: rgb(252, 252, 252);
 }
 .hero_title{
-    font-size: 3.2rem;
+    font-size: 4rem;
+    font-family: 'Times New Roman', Times, serif;
+    color: rgb(252, 252, 252);
 }
 .hero_subtitle{
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 300;
-    margin: 15px 0;
+    margin: 20px 0;
+    font-family: 'Times New Roman', Times, serif;
+    color: rgb(252, 252, 252);
 }
 .hero_cta{
  display: inline-block;
  background: #ffffff;
+ font-family: 'Times New Roman', Times, serif;
  padding: var(--boton-padding);
  color: var(--color-primary);
  text-decoration: none;
  border-radius: 40px;
+ margin: 30px;
 }
 .hero_waves{
     position: absolute;

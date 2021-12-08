@@ -37,38 +37,6 @@ body{
 .hero .container{
    padding: 0%;
 }
-
-.nav{
-    display: flex;
-    justify-content: flex-end;
-    height: 70px;
-    align-items: center;
-    font-weight:700;
-}
-.nav--footer{
-    font-weight: 300;
-    justify-content: flex-start;
-}
-.nav_items{
-    color: #c0eeee;
-    text-decoration: none;
-    margin-right: 28px;
-    padding: 10px 15px;
-    font-weight: inherit;
-}
-.nav_items--cta{
-    border: 1px solid #ffffff ;
-}
-.nav_items--footer{
-    padding: 10px;
-
-}
-.hero_container{
-    display: flex;
-    height: calc(100vh - 70px);
-    align-items: center;
-    color: white;
-}
 .hero_texts{
     width: 80%;
     margin-bottom: 50px;
@@ -167,7 +135,6 @@ body{
     font-size:30px;
 }
 /*comentarios y post*/
-/*no encuentroooo el hpta marcoooo*/
 .principal-post{
     background-color: rgb(80, 185, 255);
     padding: 1rem;
@@ -222,6 +189,7 @@ body{
       background-color: aqua;
     
   }
+  /*Comentarios*/
   .title-comentarios-post{
   font-family: 'Times New Roman', Times, serif;
   display:flex;
@@ -326,7 +294,4 @@ body{
       align-items: center;
       padding: 0em;
       justify-content: space-between;
-  }
-  .offcanvasRightLabel{
-      float: right;
   }

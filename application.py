@@ -18,18 +18,24 @@ Session(app)
 engine=create_engine(os.getenv("DATABASE_URL"))
 db=scoped_session(sessionmaker(bind=engine))
 
-@app.route("/")
+
+@app.after_request
+def after_request(response):
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Expires"] = 0
+    response.headers["Pragma"] = "no-cache"
+    return response
+
+@app.route("/", methods=["GET","POST"])
 def index():
-    if session.user_id: 
         return render_template("index.html")
-    else:
-        return render_template("layout.html")
+    
   
 
 @app.route("/salir")
 def logout():
     session.clear()
-    return redirect("register")
+    return redirect("login.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -53,22 +59,19 @@ def register():
             return render_template("register.html")
 
        #encripta la contraseña
-        password = generate_password_hash(password)
         rows = db.execute("SELECT * FROM usuario WHERE username = :username",
                           {"username": username}).fetchall()
 
         if len(rows) != 0:
-            flash("usuario existente")
-
+            return "error"
+        password = generate_password_hash(password)
         # consula la base de datos para verificar el usuario
         variable=db.execute("INSERT INTO usuario (username, password, isadmin) VALUES ( :username, :password, False)", {"username": username,"password": password})
-        db.commit()
-        session["user_id"]= variable
-        flash("Usuario registrado")
-        return redirect("/")
-
        
-
+        db.commit()
+        session["user_id"]= rows
+        flash("Usuario registrado")
+        return redirect("/login.html")
     else: 
         return render_template("register.html")
 
@@ -85,24 +88,25 @@ def login():
         # usuario enviado
         if not request.form.get("username"):
             flash("Proporcione un usuario")
-            return ("logint.html")
+            return render_template("logint.html")
 
         # contraseña enviada
         elif not request.form.get("password"):
             flash("Proporcione una contraseña")
-            return("login.html")
+            return render_template("login.html")
 
+        username = request.form.get("username")
         # base de datos del usuario
         rows = db.execute("SELECT * FROM usuario WHERE username = :username",
-                        username=request.form.get("username"))
+                          {"username": username}).fetchall() 
 
         # Error si el usuario existe o la contra es incorrecta
-        if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
+        if len(rows) != 1 or not check_password_hash(rows[0]["password"], request.form.get("password")):
             flash("Contraseña o Usuario invalidos")
-            return("login.html")
+            return render_template("login.html")
 
         # recuerda si se ha iniciado sesion previamente
-        session["user_id"] = rows[0]["id"]
+        session["user_id"]= rows
 
         # reedireccion al index
         flash("!Sesión iniciada!")
@@ -112,9 +116,9 @@ def login():
     else:
         return render_template("login.html")
 
-@app.route("/galeria")
+@app.route("/publication")
 def galeria():  
-     return render_template("galeria")   
+     return render_template("publication")   
 
 if __name__ == "__main__":
         app.run(port=3300,debug=True)

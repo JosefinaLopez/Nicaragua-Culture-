@@ -44,7 +44,7 @@
        <div class="categoria__grid">
 
          <article class="categorias__item">
-           <img src="/templates/imagenes/gastronomia1.jpg" class="categorias__img">
+           <img src="{{url_for('static',filename='gastronomia1.jpg')}}" class="categorias__img">
            <div class="categorias__hover">
              <h2 class="categorias__title">Comidas</h2>
              <i class="far fa-file-alt categorias__icon"></i>
@@ -52,7 +52,7 @@
          </article>
 
          <article class="categorias__item">
-          <img src="/templates/imagenes/poesia.jpeg" class="categorias__img">
+          <img src="{{url_for('static',filename='poesia.jpeg')}}"class="categorias__img">
           <div class="categorias__hover">
             <h2 class="categorias__title">Poesia</h2>
             <i class="far fa-file-alt categorias__icon"></i>
@@ -60,7 +60,7 @@
         </article>
 
         <article class="categorias__item">
-          <img src="/templates/imagenes/danza.jpeg" class="categorias__img">
+          <img src="{{url_for('static',filename='danza.jpeg')}}" class="categorias__img">
           <div class="categorias__hover">
             <h2 class="categorias__title">Musica y Danza</h2>
             <i class="far fa-file-alt categorias__icon"></i>
@@ -68,7 +68,7 @@
         </article>
 
         <article class="categorias__item">
-          <img src="/templates/imagenes/tradiciones.jpeg" class="categorias__img">
+          <img src="{{url_for('static', filename='tradiciones.jpeg')}}"class="categorias__img">
           <div class="categorias__hover">
             <h2 class="categorias__title">Tradiciones</h2>
             <i class="far fa-file-alt categorias__icon"></i>
@@ -76,7 +76,7 @@
         </article>
 
         <article class="categorias__item">
-          <img src="/templates/imagenes/simbolospatriosynacionales.png" class="categorias__img">
+          <img src="{{url_for('static', filename='simbolospatriosynacionales.jpg')}}" class="categorias__img">
           <div class="categorias__hover">
             <h2 class="categorias__title">Simbolos Nacioneles</h2>
             <i class="far fa-file-alt categorias__icon"></i>
@@ -95,7 +95,7 @@
        
       <a href="#" class="enlace-post"><h2>Titulo</h2></a>
       <a href="#" class="titulo-post">hace 32 minutos</a> 
-       <img src="/templates/imagenes/danza.jpeg" class="img-post">
+       <img src="{{url_for('static', filename='danza.jpeg')}}" class="img-post">
        <div class="card-body">
        <p class="parrafo-post">
          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -131,7 +131,7 @@
       <div class="comentarios">
 
         <div class="fotoperfil">
-          <img src="/templates/imagenes/Guenguense.jpg" alt="">
+          <img src="{{url_for('static',filename='Gueguense.jpg')}}" alt="">
         </div>
 
         <div class="infocoments">
@@ -157,7 +157,7 @@
       <div class="comentarios-request">
 
         <div class="fotoperfil-request">
-          <img src="/templates/imagenes/Guenguense.jpg" alt="">
+          <img src="{{url_for('static', filename='Gueguense.jpg')}}"alt="">
         </div>
 
         <div class="infocoments-request">
@@ -178,7 +178,7 @@
     </div>
   </div>
   <div class="escribircomentario">
-    <div class="fotoescribircomentario"><img src="/templates/imagenes/Guenguense.jpg" alt=""></div>
+    <div class="fotoescribircomentario"><img src="{{url_for('static', filename='Gueguense.jpg')}}" alt=""></div>
     <div class="input-group mb-3">
       <input type="text" class="form-control" placeholder="Escribir Comentario" aria-label="Recipient's comentario" aria-describedby="button-addon2">
       <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fas fa-arrow-right"></i></button>
@@ -197,7 +197,7 @@
          
         <a href="#" class="enlace-post"><h2>Titulo</h2></a>
         <a href="#" class="titulo-post">hace 32 minutos</a> 
-         <img src="/templates/imagenes/danza.jpeg" class="img-post">
+         <img src="{{url_for('static', filename='danza.jpeg')}}"class="img-post">
          <div class="card-body">
          <p class="parrafo-post">
            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -233,7 +233,7 @@
         <div class="comentarios">
   
           <div class="fotoperfil">
-            <img src="/templates/imagenes/Guenguense.jpg" alt="">
+            <img src="static/Guenguense.jpg"alt="">
           </div>
   
           <div class="infocoments">
@@ -262,7 +262,7 @@
         <div class="comentarios-request">
   
           <div class="fotoperfil-request">
-            <img src="/templates/imagenes/Guenguense.jpg" alt="">
+            <img src="static/Guenguense.jpg"alt="">
           </div>
   
           <div class="infocoments-request">
@@ -285,7 +285,7 @@
       </div>
     </div>
     <div class="escribircomentario">
-      <div class="fotoescribircomentario"><img src="/templates/imagenes/Guenguense.jpg" alt=""></div>
+      <div class="fotoescribircomentario"><img src="static/Guenguense.jpg"t=""></div>
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Escribir Comentario" aria-label="Recipient's comentario" aria-describedby="button-addon2">
         <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fas fa-arrow-right"></i></button>

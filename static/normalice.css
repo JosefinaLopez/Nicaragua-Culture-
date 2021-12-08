@@ -27,7 +27,7 @@
   
   body {
     margin:0;
-    background-image: url(/templates/imagenes/fondoblog.jpeg);
+    background-image: url("/static/fondoblog.jpeg");
     background-size:contain;
   }
   

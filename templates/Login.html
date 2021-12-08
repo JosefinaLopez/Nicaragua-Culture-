@@ -16,7 +16,7 @@
         margin-top: auto;
       }
       .bg{
-        background-image: url(/templates/imagenes/imagelogin.jpg);
+        background-image: url(/static/imagelogin.jpg);
         background-position: center center;
         background-size:cover;
       }
@@ -30,7 +30,7 @@
        </div>
        <div class="col bg-white p-5 rounded-end">
          <div class="text-end">
-           <img src="img/logo.png" width="48" alt="">
+           <img src="{{url_for('static', filename='imagenlogin.jpg')}}" width="48" alt="">
          </div>
 
           <hi2 class="fw-bold text-center py-5">Login</hi2>

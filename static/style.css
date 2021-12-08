@@ -27,7 +27,7 @@ body{
 }
 .hero{
     height: 100vh;
-    background-image: var(--background),url(/templates/imagenes/portadablog.jpeg);
+    background-image: var(--background),url("/static/portadablog.jpeg");
     background-repeat: no-repeat;
     background-size:cover;
     background-attachment: fixed;

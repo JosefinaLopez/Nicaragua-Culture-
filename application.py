@@ -28,14 +28,21 @@ def after_request(response):
 
 @app.route("/", methods=["GET","POST"])
 def index():
+    if 'username' in session:
+
+        username = session["username"]
+        id_user = db.execute("SELECT iduser FROM usuario WHERE username = :username AND isadmin=True",
+                          {"username": username}).fetchone()[0]
+        return render_template("index.html", username= username) 
+    else: 
         return render_template("index.html")
     
   
 
 @app.route("/salir")
-def logout():
+def salir():
     session.clear()
-    return redirect("login.html")
+    return render_template("login.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -71,7 +78,7 @@ def register():
         db.commit()
         session["user_id"]= rows
         flash("Usuario registrado")
-        return redirect("/login.html")
+        return redirect(url_for("index"))
     else: 
         return render_template("register.html")
 
@@ -88,7 +95,7 @@ def login():
         # usuario enviado
         if not request.form.get("username"):
             flash("Proporcione un usuario")
-            return render_template("logint.html")
+            return render_template("login.html")
 
         # contraseña enviada
         elif not request.form.get("password"):
@@ -98,7 +105,7 @@ def login():
         username = request.form.get("username")
         # base de datos del usuario
         rows = db.execute("SELECT * FROM usuario WHERE username = :username",
-                          {"username": username}).fetchall() 
+                          {"username": username}).fetchall()                 
 
         # Error si el usuario existe o la contra es incorrecta
         if len(rows) != 1 or not check_password_hash(rows[0]["password"], request.form.get("password")):
@@ -107,18 +114,34 @@ def login():
 
         # recuerda si se ha iniciado sesion previamente
         session["user_id"]= rows
-
+        session["username"] = username
         # reedireccion al index
         flash("!Sesión iniciada!")
-        return redirect("/")
+        return redirect(url_for("index"))
 
 # Mediante al get reedirige al login si no estan correctos los datos
     else:
         return render_template("login.html")
 
-@app.route("/publication")
-def galeria():  
-     return render_template("publication")   
+@app.route("/agregar", methods=["GET", "POST"])
+def agregar():  
+    if request.method == "POST":
+        #declaracion de variables
+        titulo= request.form.get("titulo")
+        contenido= request.form.get("contenido")
+        #se obtiene session del usuario con username
+        username = session.get("username")
+        #se consulta en la bd el nombre y que el admin sea igual a True
+        id_user = db.execute("SELECT iduser FROM usuario WHERE username = :username AND isadmin=True",
+                          {"username": username}).fetchone()[0] 
+        #Se hace la inserccion en la tabla de publication 
+        db.execute("INSERT INTO publication(iduser,contenido,titulo) VALUES(:iduser, :contenido,:titulo)",
+                   {"iduser":id_user, "contenido":contenido,"titulo":titulo})
+        db.commit() 
+        flash("Publicacion agregada con exito")  
 
+        return redirect(url_for("index")) 
+    else: 
+        return render_template("publication.html")
 if __name__ == "__main__":
         app.run(port=3300,debug=True)

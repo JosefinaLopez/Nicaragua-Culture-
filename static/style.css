@@ -11,6 +11,7 @@ body{
     font-family: 'Times New Roman', Times, serif;
 }
 .container{
+    margin-top: 50vh;
      width: 90%;
      margin: 0 auto;
      overflow: hidden;
@@ -27,36 +28,45 @@ body{
 }
 .hero{
     height: 100vh;
-    background-image: var(--background),url("/static/portada4.jpg.crdownload");
+    background-image: var(--background),url("/static/imagenes/portadablog.jpeg");
     background-repeat: no-repeat;
     background-size:cover;
     background-attachment: fixed;
     background-position:center;
     position:relative;
 }
+.hero_container{
+    display: flex;
+    box-sizing:var(--boton-padding);
+    height: calc(120vh - 100px);
+    align-items: center;
+    color: rgb(241, 242, 248);
+}
 .hero .container{
    padding: 0%;
 }
-.hero_texts{
-    width: 90%;
+.hero__texts{
+    width: 100%;
     margin-bottom: 50px;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: rgb(252, 252, 252);
+    display:block;
+
 }
 .hero_title{
     font-size: 4rem;
-    font-family: 'Times New Roman', Times, serif;
-    color: rgb(252, 252, 252);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: rgb(255, 255, 255);
 }
 .hero_subtitle{
     font-size: 2rem;
     font-weight: 300;
     margin: 20px 0;
     font-family: 'Times New Roman', Times, serif;
-    color: rgb(252, 252, 252);
+    color: rgb(255, 255, 255);
 }
 .hero_cta{
- display: inline-block;
+ display:-webkit-inline-flex;
  background: #ffffff;
  font-family: 'Times New Roman', Times, serif;
  padding: var(--boton-padding);
@@ -65,15 +75,17 @@ body{
  border-radius: 40px;
  margin: 30px;
 }
+/*Esa cosa azul xd*/
 .hero_waves{
     position: absolute;
     bottom:0;
     left: 0;
     width: 100%;
-    height: 100px;
+    height: 160px;
 }
+/*Categorias*/
 .categorias{
-    background: #fafafa;
+    background: #ffffff;
     border-radius: 1.5rem;
 }
 .categoria__grid{
@@ -81,13 +93,13 @@ body{
     width: 100%;
     height: 100%;
     grid-template-areas: "imagen1 imagen2 imagen3 imagen4 imagen5";
-    gap: -5px;
+    gap: 5px;
 }
 .categorias__title{
     font-family: 'Times New Roman', Times, serif;
     font-size: 1rem;
     display:initial;
-    color: #fcfcfd;
+    color: #ffffff;
 
 }
 .categorias__item{
@@ -121,7 +133,7 @@ body{
 }
 .categorias__hover{
     position: absolute;
-    background: #169ba069;
+    background: #1624a069;
     top: 0%;
     left: 0%;
     width: 100%;
@@ -159,7 +171,7 @@ body{
     width: 100%;
     height: auto;overflow: hidden;
     padding:7px;
-    background: #fafafd;
+    background: #ffffff;
     background: linear-gradient(aqua);
     border-radius: 10px;
     
@@ -298,8 +310,9 @@ body{
           height: 130px;
       }
   }
-  .offcanvas-header{
-      align-items: center;
-      padding: 0em;
-      justify-content: space-between;
+  .nav-comentarios{
+      background-color: #adecff;
+  }
+  #Cerrar{
+    float: inline-end;
   }

@@ -1,10 +1,18 @@
 {% extends "layout.html"%}
 
-   {% block main %}
+   {% block main %} 
+   <style>
+      body{
+    background-image: url("/static/imagenes/fondoblog.jpeg");
+    background-size:contain;
+    background-attachment: fixed;
+    position:relative;
+   }   
+   </style>
   
-    <html>
         <title>Nicaragua Culture</title>
     <body>
+      <div class="hero">
     <section class="hero_container">
       <div class="hero__texts">
         <h1 class="hero_title">Bienvenido a Nicaragua Culture</h1>
@@ -13,11 +21,13 @@
         <a href="#" class="hero_cta">Ver publicaciones recientes</a>
       </div>
     </section>
-  </div>
+
+
   <div class="hero_waves" style="overflow: hidden;"><svg viewBox="0 0 500 150"
       preserveAspectRatio="none" style="height: 100%; width: 100%;"><path
         d="M0.00,49.98 C149.99,150.00 349.20,-49.98 500.00,49.98 L500.00,150.00
         L0.00,150.00 Z" style="stroke: none; fill: rgba(120, 251, 255, 0.863);"></path></svg></div>
+  </div>      
   <main>
     <!--Seccion de Categorias-->
     <section class="categorias">
@@ -26,7 +36,7 @@
         <div class="categoria__grid">
 
           <article class="categorias__item">
-            <img src="{{url_for('static',filename='gastronomia1.jpg')}}"
+            <img src="/static/imagenes/gastronomia1.jpg"
               class="categorias__img">
             <div class="categorias__hover">
               <h2 class="categorias__title">Comidas</h2>
@@ -35,7 +45,7 @@
           </article>
 
           <article class="categorias__item">
-            <img src="{{url_for('static',filename='poesia.jpeg')}}"
+            <img src="/static/imagenes/poesia.jpeg"
               class="categorias__img">
             <div class="categorias__hover">
               <h2 class="categorias__title">Poesia</h2>
@@ -44,7 +54,7 @@
           </article>
 
           <article class="categorias__item">
-            <img src="{{url_for('static',filename='danza.jpeg')}}"
+            <img src="/static/imagenes/danza.jpeg"
               class="categorias__img">
             <div class="categorias__hover">
               <h2 class="categorias__title">Musica y Danza</h2>
@@ -53,7 +63,7 @@
           </article>
 
           <article class="categorias__item">
-            <img src="{{url_for('static', filename='tradiciones.jpeg')}}"
+            <img src="/static/imagenes/Guenguense.jpg"
               class="categorias__img">
             <div class="categorias__hover">
               <h2 class="categorias__title">Tradiciones</h2>
@@ -62,11 +72,10 @@
           </article>
 
           <article class="categorias__item">
-            <img src="{{url_for('static',
-              filename='simbolospatriosynacionales.png')}}"
+            <img src="/static/imagenes/simbolospatriosynacionales.png"
               class="categorias__img">
             <div class="categorias__hover">
-              <h2 class="categorias__title">Simbolos Nacioneles</h2>
+              <h2 class="categorias__title">Simbolos Nacionales</h2>
               <i class="far fa-file-alt categorias__icon"></i>
             </div>
           </article>
@@ -83,7 +92,7 @@
 
             <a href="#" class="enlace-post"><h2>Titulo</h2></a>
             <a href="#" class="titulo-post">hace 32 minutos</a>
-            <img src="{{url_for('static', filename='danza.jpeg')}}"
+            <img src="/static/imagenes/simbolospatriosynacionales.png"
               class="img-post">
             <div class="card-body">
               <p class="parrafo-post">
@@ -106,27 +115,36 @@
             </div>
 
              <!--Canvas y Reacciones-->
-            <div class="btn btn-light"><i class="far fa-heart"></i></div>
 
-            <div class="btn btn-light" type="button" data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i
-                class="far fa-comments"></i></i><span class="badge bg-info">4</span></div>
-                
+             <div class="btn btn-light"><i class="far fa-heart"></i></div>
+
+             <button type="button" class="btn btn-light position-relative" data-bs-toggle="offcanvas"
+             data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+              <i class="far fa-comments"></i>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                99+
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            </button>
+
             <!--Inicio de la barra canvas-->    
           <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
             aria-labelledby="offcanvasRightLabel">
-            <div class="shadow-sm p-2 mb-xl-1 bg-body rounded" id="btn-cerrar">
+
+             <section class="nav-comentarios">
               <h2 class="title-comentarios-post">Comentarios</h2>
-              <button id="offcanvasRightLabel" type="button"
+              <button id="Cerrar" type="button"
                 data-bs-dismiss="offcanvas" aria-label="Close">Cerrar</button>
-            </div>
+
+            </section>
+              
             <div class="offcanvas-body">
               <!--Contenedor de comentarios en general-->
               <div class="container-comentarios">
                 <!--Comentarios principales-->
                 <div class="comentarios">
                   <div class="fotoperfil">
-                    <img src="{{url_for('static',filename='Guenguense.jpg')}}"
+                    <img src="/static/imagenes/usuario-imagen.jpg"
                       alt="">
                   </div>
 
@@ -154,7 +172,7 @@
                 <div class="comentarios-request">
 
                   <div class="fotoperfil-request">
-                    <img src="{{url_for('static', filename='Guenguense.jpg')}}"
+                    <img src="/static/imagenes/usuario-imagen.jpg"
                       alt="">
                   </div>
 
@@ -176,8 +194,7 @@
               </div>
             </div>
             <div class="escribircomentario">
-              <div class="fotoescribircomentario"><img src="{{url_for('static',
-                  filename='Guenguense.jpg')}}" alt=""></div>
+              <div class="fotoescribircomentario"><img src="/static/imagenes/usuario-imagen.jpg" alt=""></div>
               <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Escribir Comentario" aria-label="Recipient's comentario"
                   aria-describedby="button-addon2">

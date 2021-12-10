@@ -4,6 +4,7 @@
    ========================================================================== */
    * ,::before, ::after{
        margin: 0%;
+       box-sizing: border-box;
    }
    .mb-5{
        margin-bottom: 0rem;
@@ -27,8 +28,6 @@
   
   body {
     margin:0;
-    background-image: url("/static/fondoblog.jpeg");
-    background-size:contain;
   }
   
   /**
@@ -37,15 +36,14 @@
   
   main {
     display: block;
-    width: 70%;
+    width: 100%;
     max-width: 50rem;
-    background-color: rgb(249, 250, 249);
-    margin: 5px auto;
+    background-color: rgb(255, 255, 255);
+    margin: 7px auto;
     padding: initial;
     border-radius: 1.5rem;
-   
-    width: 88%;
-    text-justify: auto;
+
+
   }
   
   /**

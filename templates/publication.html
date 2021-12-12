@@ -19,8 +19,6 @@
         <input type="file" name="agrega una imagen">
 
         <div class="card-body">
-           <!--Para poner la fecha y hora de la publicacion-->
-          <input type="datetime-local"  class="form-label" name="date">
           <!--Titulo de publicacion-->
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Titulo</label>
@@ -28,8 +26,12 @@
           </div>
           <!--Contenido de publicacion-->
           <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Contenido</label>
-            <textarea  name="contenido" class="form-control" id="exampleFormControlTextarea1" placeholder="Escribe el contenido de tu publicacion" rows="3"></textarea>
+            <label for="exampleFormControlTextarea1" class="form-label">Contenido Corto</label>
+            <textarea  name="shortcontent" class="form-control" id="exampleFormControlTextarea1" placeholder="Escribe el contenido de tu publicacion" rows="3"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Contenido Largo</label>
+            <textarea  name="longcontent" class="form-control" id="exampleFormControlTextarea1" placeholder="Escribe el contenido de tu publicacion" rows="3"></textarea>
           </div>
          <!--Botones-->
           <input type="submit" class="boton-publicacion">

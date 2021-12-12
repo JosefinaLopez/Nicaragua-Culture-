@@ -31,11 +31,12 @@ def index():
     if 'username' in session:
 
         username = session["username"]
-        id_user = db.execute("SELECT iduser FROM usuario WHERE username = :username AND isadmin=True",
-                          {"username": username}).fetchone()[0]
-        return render_template("index.html", username= username) 
+        id_user = db.execute("SELECT iduser FROM usuario WHERE username = :username AND isadmin=True OR isadmin=False",
+                          {"username" :username}).fetchone()[0]
+        publication = db.execute("SELECT titulo , shortcontent, longcontent , likes, register_date FROM publication").fetchall()                 
+        return render_template("index.html", username= username, publication=publication) 
     else: 
-        return render_template("index.html")
+        return render_template("login.html")
     
   
 
@@ -43,6 +44,10 @@ def index():
 def salir():
     session.clear()
     return render_template("login.html")
+
+@app.route("/galery")
+def galery():
+    return render_template("galery.html")    
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -128,15 +133,16 @@ def agregar():
     if request.method == "POST":
         #declaracion de variables
         titulo= request.form.get("titulo")
-        contenido= request.form.get("contenido")
+        shortcontent= request.form.get("shortcontent")
+        longcontent= request.form.get("longcontent")
         #se obtiene session del usuario con username
         username = session.get("username")
         #se consulta en la bd el nombre y que el admin sea igual a True
         id_user = db.execute("SELECT iduser FROM usuario WHERE username = :username AND isadmin=True",
                           {"username": username}).fetchone()[0] 
         #Se hace la inserccion en la tabla de publication 
-        db.execute("INSERT INTO publication(iduser,contenido,titulo) VALUES(:iduser, :contenido,:titulo)",
-                   {"iduser":id_user, "contenido":contenido,"titulo":titulo})
+        db.execute("INSERT INTO publication(iduser,titulo,shortcontent,longcontent,likes) VALUES(:iduser, :titulo,:shortcontent,:longcontent, 0)",
+                   {"iduser":id_user,"titulo" :titulo, "shortcontent":shortcontent,"longcontent" :longcontent})
         db.commit() 
         flash("Publicacion agregada con exito")  
 
@@ -145,3 +151,5 @@ def agregar():
         return render_template("publication.html")
 if __name__ == "__main__":
         app.run(port=3300,debug=True)
+
+        

@@ -1,4 +1,4 @@
-{% extends "layout.html"%}
+{% extends "layout.html" %}
 
    {% block main %} 
    <style>
@@ -7,7 +7,16 @@
     background-size:contain;
     background-attachment: fixed;
     position:relative;
-   }   
+   } 
+   .hero{
+    height: 110vh;
+    background-image: var(--background),url("/static/imagenes/portadablog.jpeg");
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-attachment: fixed;
+    background-position:center;
+    position:relative;
+}  
    </style>
   
         <title>Nicaragua Culture</title>
@@ -29,105 +38,44 @@
         L0.00,150.00 Z" style="stroke: none; fill: rgba(120, 251, 255, 0.863);"></path></svg></div>
   </div>      
   <main>
-    <!--Seccion de Categorias-->
-    <section class="categorias">
-      <div class="container">
-        <h2 class="subtitle">Categorias</h2>
-        <div class="categoria__grid">
-
-          <article class="categorias__item">
-            <img src="/static/imagenes/gastronomia1.jpg"
-              class="categorias__img">
-            <div class="categorias__hover">
-              <h2 class="categorias__title">Comidas</h2>
-              <i class="far fa-file-alt categorias__icon"></i>
-            </div>
-          </article>
-
-          <article class="categorias__item">
-            <img src="/static/imagenes/poesia.jpeg"
-              class="categorias__img">
-            <div class="categorias__hover">
-              <h2 class="categorias__title">Poesia</h2>
-              <i class="far fa-file-alt categorias__icon"></i>
-            </div>
-          </article>
-
-          <article class="categorias__item">
-            <img src="/static/imagenes/danza.jpeg"
-              class="categorias__img">
-            <div class="categorias__hover">
-              <h2 class="categorias__title">Musica y Danza</h2>
-              <i class="far fa-file-alt categorias__icon"></i>
-            </div>
-          </article>
-
-          <article class="categorias__item">
-            <img src="/static/imagenes/Guenguense.jpg"
-              class="categorias__img">
-            <div class="categorias__hover">
-              <h2 class="categorias__title">Tradiciones</h2>
-              <i class="far fa-file-alt categorias__icon"></i>
-            </div>
-          </article>
-
-          <article class="categorias__item">
-            <img src="/static/imagenes/simbolospatriosynacionales.png"
-              class="categorias__img">
-            <div class="categorias__hover">
-              <h2 class="categorias__title">Simbolos Nacionales</h2>
-              <i class="far fa-file-alt categorias__icon"></i>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
   <!--Seccion del Post y Comentarios-->
-    <section id="principal-post">
-      <section id="publicaciones">
-        <hr class="line">
-        <article class="post">
-          <div class="shadow p-3 mb-1 bg-body rounded">
+  <section id="principal-post">
+    {% for p in publication %}
+    <section id="publicaciones">
+      <article class="post">
+        <div class="shadow p-3 mb-1 bg-body rounded">
 
-            <a href="#" class="enlace-post"><h2>Titulo</h2></a>
-            <a href="#" class="titulo-post">hace 32 minutos</a>
+          <a href="#" class="enlace-post"><h2>{{p.titulo}}</h2></a>
+            <a href="#" class="titulo-post">{{p.register_date}}</a>
             <img src="/static/imagenes/simbolospatriosynacionales.png"
               class="img-post">
             <div class="card-body">
               <p class="parrafo-post">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Excepturi quisquam adipisci omnis veniam, quam,
-                vel enim doloremque quos et itaque distinctio culpa cumque
-                provident temporibus sapiente dolore.
-                Necessitatibus, laborum numquam.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Repellat, tempora? Quia a in itaque repellendus ut fuga quas ab
-                quibusdam nobis quisquam,
-                iusto ad adipisci, cupiditate quis sequi optio perspiciatis!
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Excepturi quisquam adipisci omnis veniam, quam,
-                vel enim doloremque quos et itaque distinctio culpa cumque
-                provident temporibus sapiente dolore.
-                Necessitatibus, laborum numquam.
+                {{p.shortcontent}}
+              </p>
+              <p>
+                {{p.longcontent}}
               </p>
 
-            </div>
+          </div>
 
-             <!--Canvas y Reacciones-->
+           <!--Canvas y Reacciones-->
 
-             <div class="btn btn-light"><i class="far fa-heart"></i></div>
+           <button type="button" class="btn btn-light">
+            <i class="far fa-heart"></i>{{p.likes}}
+          </button>
 
-             <button type="button" class="btn btn-light position-relative" data-bs-toggle="offcanvas"
-             data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-              <i class="far fa-comments"></i>
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                99+
-                <span class="visually-hidden">unread messages</span>
-              </span>
-            </button>
-
-            <!--Inicio de la barra canvas-->    
+           <button type="button" class="btn btn-light position-relative" data-bs-toggle="offcanvas"
+           data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+            <i class="far fa-comments"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              99+
+              <span class="visually-hidden">unread messages</span>
+            </span>
+          </button>
+        </div>
+          {% endfor %}
+            <!--Inicio de la barra canvas (aqui empiezan los comentarios xd)-->    
           <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
             aria-labelledby="offcanvasRightLabel">
 
@@ -198,7 +146,7 @@
               <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Escribir Comentario" aria-label="Recipient's comentario"
                   aria-describedby="button-addon2">
-                <button class="btn btn-outline-secondary" type="button"
+                <button class="btn btn-outline-secondary" type="submit"
                   id="button-addon2"><i class="fas fa-arrow-right"></i></button>
               </div>
             </div>
@@ -215,8 +163,7 @@
    
       </div class>
     </footer>
-   
   </body>
 </html>
 
-{%endblock%}
+{% endblock %}

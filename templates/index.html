@@ -4,16 +4,16 @@
    <style>
       body{
     background-image: url("/static/imagenes/fondoblog.jpeg");
-    background-size:contain;
-    background-attachment: fixed;
-    position:relative;
+    background-size:550px;
+    height: 100vh;
+    
+    
    } 
    .hero{
-    height: 110vh;
+    height: 100vh;
     background-image: var(--background),url("/static/imagenes/portadablog.jpeg");
     background-repeat: no-repeat;
     background-size:cover;
-    background-attachment: fixed;
     background-position:center;
     position:relative;
 }  
@@ -27,7 +27,7 @@
         <h1 class="hero_title">Bienvenido a Nicaragua Culture</h1>
         <h2 class="hero_subtitle">"La cultura es el aprovechamiento social de el
           conocimiento"</h2>
-        <a href="#" class="hero_cta">Ver publicaciones recientes</a>
+        <a href="galery" class="hero_cta">Ver imagenes destacadas</a>
       </div>
     </section>
 
@@ -35,7 +35,7 @@
   <div class="hero_waves" style="overflow: hidden;"><svg viewBox="0 0 500 150"
       preserveAspectRatio="none" style="height: 100%; width: 100%;"><path
         d="M0.00,49.98 C149.99,150.00 349.20,-49.98 500.00,49.98 L500.00,150.00
-        L0.00,150.00 Z" style="stroke: none; fill: rgba(120, 251, 255, 0.863);"></path></svg></div>
+        L0.00,150.00 Z" style="stroke: none; fill: rgba(117, 237, 241, 0.986);"></path></svg></div>
   </div>      
   <main>
   <!--Seccion del Post y Comentarios-->
@@ -60,10 +60,19 @@
           </div>
 
            <!--Canvas y Reacciones-->
-
-           <button type="button" class="btn btn-light">
-            <i class="far fa-heart"></i>{{p.likes}}
-          </button>
+   <!--corazon-->
+         <button class="ori"><i class="fas fa-heart"></i></i></button>{{p.likes}}
+          <script>
+            let btn = document.querySelector('button');
+            let classObj = {
+              ori: 'large',
+              large: 'ori'
+            }
+            
+            btn.addEventListener('click',()=>{
+              btn.classList = classObj[btn.classList[0]];
+            });
+          </script>
 
            <button type="button" class="btn btn-light position-relative" data-bs-toggle="offcanvas"
            data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
@@ -79,13 +88,10 @@
           <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
             aria-labelledby="offcanvasRightLabel">
 
-             <section class="nav-comentarios">
-              <h2 class="title-comentarios-post">Comentarios</h2>
-              <button id="Cerrar" type="button"
-                data-bs-dismiss="offcanvas" aria-label="Close">Cerrar</button>
-
-            </section>
-              
+            <div class="offcanvas-header">
+              <h5 id="offcanvasRightLabel">Comentarios</h5>
+              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div> 
             <div class="offcanvas-body">
               <!--Contenedor de comentarios en general-->
               <div class="container-comentarios">
@@ -157,7 +163,7 @@
     </main>
     <footer class="footer">
       <div class="container footer__grid>
-      <i class="far fa-envelope" href="#"></i>
+      <i class= "far fa-envelope" href="#"></i>
        <i class="fab fa-whatsapp" href="#"></i>
        <i class="fab fa-telegram-plane" href="#"></i>
    

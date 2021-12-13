@@ -16,21 +16,29 @@
   <ul class="nav justify-content-end  navbar-light bg-light">
     {% if session.user_id %}
 
-    <li class="nav-item">
-      <a class="nav-link active" href="/">{{ username }}</a>
-    </li>
-     <li class="nav-item">
-      <a class="nav-link active" href="/">Inicio</a>
-    </li>
       <li class="nav-item">
-        <a class="nav-link active" href="/agregar">Nueva Publicacion</a>
+        <a class="nav-link active" href="/">{{ username }}</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link active" href="/galery">Galeria</a>
+       <li class="nav-item">
+        <a class="nav-link active" href="/">Inicio</a>
       </li>
       <li class="nav-item">
         <a class="nav-link active" href="/salir">Cerrar sesion</a>
       </li>
+      {% elif session.isadmin %}
+      <li class="nav-item">
+        <a class="nav-link active" href="/">{{ username }}</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link active" href="/">Inicio</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="/agregar">Nueva Publicacion</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="/salir">Cerrar sesion</a>
+      </li>
+
       {% else %}
       <li class="nav-item">
         <a class="nav-link" href="/login">Login</a>
@@ -40,15 +48,6 @@
       </li>
       {% endif %}
 </ul>
-
-{% if get_flashed_messages() %}
-    <header>
-        <div class="alert alert-primary border text-center" role="alert">
-            {{ get_flashed_messages() | join(" ") }}
-        </div>
-    </header>
-{% endif %}
-
 
 {% block main %}
 {% endblock %}

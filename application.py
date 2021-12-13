@@ -117,10 +117,15 @@ def login():
             flash("Contraseña o Usuario invalidos")
             return render_template("login.html")
 
+        print(rows)
+        if rows[0][3] == True:
+            session["isadmin"]= rows
+
         # recuerda si se ha iniciado sesion previamente
-        session["user_id"]= rows
+        else:
+            session["user_id"]= rows
         session["username"] = username
-        # reedireccion al index
+            # reedireccion al index
         flash("!Sesión iniciada!")
         return redirect(url_for("index"))
 

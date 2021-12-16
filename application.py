@@ -38,6 +38,23 @@ def index():
     else: 
         return render_template("login.html")
     
+
+
+@app.route("/comentarios", methods=["GET","POST"])
+def comentarios():
+    if 'username' in session:
+        #Comentarios
+        comentarios= request.form.get("comentarios")
+        #inserta de la tabla comentarios los sig datos 
+        cm= db.execute("INSERT INTO comentarios idcomentarios, comentario, iduser,fecha  VALUES (:idcomentarios, :idpublication, :comentario,:iduser,:fecha)")
+        { "idcomentarios" :idcomentarios, "comentario" :comentario, "iduser" :iduser, "fecha" :fecha}
+        #envia la informacion
+        db.commit() 
+        #confirma 
+        flash("Publicacion agregada con exito")  
+        return render_template("index.html", comentarios= comentarios) 
+    else: 
+        return render_template("login.html")
   
 
 @app.route("/salir")

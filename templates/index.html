@@ -44,8 +44,8 @@
     <section id="publicaciones">
       <article class="post">
         <div class="shadow p-3 mb-1 bg-body rounded">
-
-          <a href="#" class="enlace-post"><h2>{{p.titulo}}</h2></a>
+         
+          <a href="/publication/{{p.idpublication}}" class="enlace-post"><h2>{{p.titulo}}</h2></a>
             <a href="#" class="titulo-post">{{p.register_date}}</a>
             <img src="/static/imagenes/simbolospatriosynacionales.png"
               class="img-post">
@@ -56,12 +56,10 @@
               <p>
                 {{p.longcontent}}
               </p>
-
           </div>
-
            <!--Canvas y Reacciones-->
-   <!--corazon-->
-         <button class="ori"><i class="fas fa-heart"></i></i></button>{{p.likes}}
+            <!--corazon-->
+         <button class="ori"><i class="fas fa-heart"></i></i></button>
           <script>
             let btn = document.querySelector('button');
             let classObj = {
@@ -77,10 +75,6 @@
            <button type="button" class="btn btn-light position-relative" data-bs-toggle="offcanvas"
            data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
             <i class="far fa-comments"></i>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-              99+
-              <span class="visually-hidden">unread messages</span>
-            </span>
           </button>
         </div>
           {% endfor %}
@@ -96,67 +90,38 @@
               <!--Contenedor de comentarios en general-->
               <div class="container-comentarios">
                 <!--Comentarios principales-->
+                {% for c in comentarios%}
                 <div class="comentarios">
                   <div class="fotoperfil">
                     <img src="/static/imagenes/usuario-imagen.jpg"
                       alt="">
                   </div>
-
                   <div class="infocoments">
                     <div class="header">
-                      <h4 class="title-coment">Nombre de Usuario</h4>
-                      <h5 class="fecha-coment">30 noviembre 2021</h5>
+                      <h4 class="title-coment">{{c.username}}</h4>
+                      <h5 class="fecha-coment">{{c.fecha}}</h5>
                     </div>
-                    <p>Lorem ipsum, dolor sit
-                      amet consectetur adipisicing elit.
-                      Quod dicta quis, accusantium doloremque
-                      praesentium soluta iste</p>
-                    <hr class="line">
-
-                    <div class="footer">
-                      <h5 class="request">Responder</h5>
-                    </div>
-                  </div>
-
-                </div>
-
-              </div>
-              <!--Comentarios de respuestas de comentarios principales xd-->
-              <div class="container-comentarios-request">
-                <div class="comentarios-request">
-
-                  <div class="fotoperfil-request">
-                    <img src="/static/imagenes/usuario-imagen.jpg"
-                      alt="">
-                  </div>
-
-                  <div class="infocoments-request">
-                    <div class="header">
-                      <h4 class="title-coment-request">Nombre de Usuario</h4>
-                      <h5 class="fecha-coment-request">30 noviembre 2021</h5>
-                    </div>
-                    <p>Lorem ipsum, dolor sit
-                      amet consectetur adipisicing elit.
-                      Quod dicta quis.</p>
-                    <hr class="line">
-
-                    <div class="footer-request">
-                      <h5 class="request">Responder</h5>
-                    </div>
+                    <p>{{c.comentarios}}</p>
                   </div>
                 </div>
-              </div>
-            </div>
+                {%endfor%}
+              </div>         
+            {% if not isadmin%}
             <div class="escribircomentario">
               <div class="fotoescribircomentario"><img src="/static/imagenes/usuario-imagen.jpg" alt=""></div>
               <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Escribir Comentario" aria-label="Recipient's comentario"
-                  aria-describedby="button-addon2" name="comentarios">
-                <input type="submit" class="enviar" name="boton-comentarios">
+                <form action="/comentarios" method="post">
+                  {% for p in publication%}
+                <input type="hidden"  name="idpublication" value="{{p.idpublication}}">
+                {% endfor%}
+                 <input type="text" name="comentario">
+                <button type="submit">Enviar</button>
+              </form>
+              {%endif%}
               </div>
-            </div>
+            </div>           
           </div>
-        </article>
+        </article>   
       </section>
       </section>
     </main>

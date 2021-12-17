@@ -10,7 +10,7 @@ CREATE table publication (
     idpublication serial not null PRIMARY KEY,
     iduser INTEGER REFERENCES usuario,
     contenido  varchar not null,
-    timedate  time no null,
+    register_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );  
    SELECT *from publication 
 

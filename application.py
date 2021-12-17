@@ -10,7 +10,7 @@ app=Flask(__name__)
 if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")
 
-    #condigurar la session
+    #configurar la session
 app.config["SESSION_PERMANENT"]= False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
@@ -29,38 +29,49 @@ def after_request(response):
 @app.route("/", methods=["GET","POST"])
 def index():
     if 'username' in session:
-
+        
         username = session["username"]
         id_user = db.execute("SELECT iduser FROM usuario WHERE username = :username AND isadmin=True OR isadmin=False",
                           {"username" :username}).fetchone()[0]
-        publication = db.execute("SELECT titulo , shortcontent, longcontent , likes, register_date FROM publication").fetchall()                 
+        publication = db.execute("SELECT titulo , shortcontent, longcontent , register_date FROM publication").fetchall()                 
         return render_template("index.html", username= username, publication=publication) 
     else: 
         return render_template("login.html")
-    
-
-
-@app.route("/comentarios", methods=["GET","POST"])
-def comentarios():
-    if 'username' in session:
-        #Comentarios
-        comentarios= request.form.get("comentarios")
-        #inserta de la tabla comentarios los sig datos 
-        cm= db.execute("INSERT INTO comentarios idcomentarios, comentario, iduser,fecha  VALUES (:idcomentarios, :idpublication, :comentario,:iduser,:fecha)")
-        { "idcomentarios" :idcomentarios, "comentario" :comentario, "iduser" :iduser, "fecha" :fecha}
-        #envia la informacion
-        db.commit() 
-        #confirma 
-        flash("Publicacion agregada con exito")  
-        return render_template("index.html", comentarios= comentarios) 
-    else: 
-        return render_template("login.html")
-  
 
 @app.route("/salir")
 def salir():
     session.clear()
     return render_template("login.html")
+
+@app.route("/publication/<idpublication>", methods=["GET", "POST"])
+def publication(idpublication):
+    username= session["username"]
+    admin=db.execute("SELECT *FROM usuario username=: username",
+                     {"username" :username}).fetchone()[3]
+    publication=db.execute("SELECT * FROM publication WHERE idpublication=:idpublication",{"idpublication" :idpublication}).fetchall()
+    comentarios=db.execute("SELECT u.username, c.comentarios FROM comentarios as C INNER JOIN usuario as u ON  u.iduser=c.iduser WHERE idpublication=:idpublication ORDER BY c.idcomentarios", {"idpublication":idpublication}).fetchall()
+    if admin == True:
+        return render_template("publication.html", publication=publication, comentarios=comentarios, admin=admin)
+    else:                   
+        return render_template("publication.html", publication=publication, comentarios=comentarios)
+   
+    
+@app.route("/comentarios", methods=["GET", "POST"])
+def comentarios():
+    if request.method =="POST":
+        username= session ["username"]
+        id = request.form.get("idpublication")
+        comentario= request.form.get("comentario")
+        user_id = db.execute("SELECT iduser FROM usuario WHERE username= :username AND  isadmin= False OR isadmin= True",
+                             {"username" :username}).fetchone()[0]
+
+        db.execute("INSERT INTO  comentarios (idpublication, comentario, iduser) VALUES (:idpublication, :comentario,:iduser)",
+                    {"idpublication":id, "comentario":comentario, "iduser":user_id})
+        db.commit()
+        p= "/publication/"+ id 
+        return redirect(p)
+
+
 
 @app.route("/galery")
 def galery():
@@ -163,14 +174,14 @@ def agregar():
         id_user = db.execute("SELECT iduser FROM usuario WHERE username = :username AND isadmin=True",
                           {"username": username}).fetchone()[0] 
         #Se hace la inserccion en la tabla de publication 
-        db.execute("INSERT INTO publication(iduser,titulo,shortcontent,longcontent,likes) VALUES(:iduser, :titulo,:shortcontent,:longcontent, 0)",
+        db.execute("INSERT INTO publication(iduser,titulo,shortcontent,longcontent) VALUES(:iduser, :titulo,:shortcontent,:longcontent)",
                    {"iduser":id_user,"titulo" :titulo, "shortcontent":shortcontent,"longcontent" :longcontent})
         db.commit() 
         flash("Publicacion agregada con exito")  
 
         return redirect(url_for("index")) 
     else: 
-        return render_template("publication.html")
+        return render_template("formpublication.html")
 if __name__ == "__main__":
         app.run(port=3300,debug=True)
 

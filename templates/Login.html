@@ -37,29 +37,10 @@
              <input type="password" class="form-control" name="password">
             </div>
            <div class="d-grid">
-
-             <!-- Button trigger modal -->
-<button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Iniciar Sesion
-</button>
-              <!-- Modal -->
-  <div class="modal" id="exampleModal" tabindex="1" aria-labelledby="..." aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Notificacion</h5>
-        </div>
-        <div class="modal-body">
-          {{ get_flashed_messages() | join(" ") }}
-        </div>
-      </div>
-    </div>
-  </div>
-  
+            <button type="submit" class="btn btn-primary">Iniciar Sesion</button>
             </div>
             <div class="my-3">
               <span>¿No tienes una cuenta? ¡Unete a Nosotros! <a href="/register">Registrate</a></span>
-              <span><a href="#">Recuperar Contraseña</a></span>
             </div>
           </form>
        </div>

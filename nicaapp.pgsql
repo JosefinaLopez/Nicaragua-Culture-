@@ -10,7 +10,7 @@ CREATE table publication (
     idpublication serial not null PRIMARY KEY,
     iduser INTEGER REFERENCES usuario,
     contenido  varchar not null,
-    register_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    register_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );  
    SELECT *from publication 
 
@@ -19,6 +19,7 @@ CREATE table comentarios (
     idpublicacion INTEGER REFERENCES publication,
     comentarios varchar not null,
     iduser INTEGER REFERENCES usuario
+    register_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ALTER TABLE  comentarios
 RENAME COLUMN idpublicacion

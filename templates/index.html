@@ -11,7 +11,7 @@
    } 
    .hero{
     height: 100vh;
-    background-image: var(--background),url("/static/imagenes/portadablog.jpeg");
+    background-image: var(--background),url("/static/imagenes/portada3.jpg");
     background-repeat: no-repeat;
     background-size:cover;
     background-position:center;
@@ -43,7 +43,6 @@
     <section id="publicaciones">
       <article class="post">
         <div class="shadow p-3 mb-1 bg-body rounded">
-       
           <a href="/publication/{{p.idpublication}}" class="enlace-post"><h2>{{p.titulo}}</h2></a>
             <a href="#" class="titulo-post">{{p.register_date}}</a>
             <img src="/static/imagenes/simbolospatriosynacionales.png"
@@ -51,27 +50,26 @@
             <div class="card-body">
               <p class="parrafo-post">
                 {{p.shortcontent}}
-                print({{p.idpublication}})
+               
               </p>
               <p>
                 {{p.longcontent}}
               </p>
+             
           </div>
-           
-        </div>
-        <!--Canvas y Reacciones-->
+           <!--Canvas y Reacciones-->
             <!--corazon-->
-            <button class="ori"><i class="fas fa-heart"></i></i></button>
+         <button class="ori"><i class="fas fa-heart"></i></i></button>
 
-            <button type="button" class="btn btn-light position-relative" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-             <i class="far fa-comments"></i>
-           </button>
-           {% if id_user == admin %}
-           <a class="btn btn-danger" href="/borrar/{{p.idpublication}}" role="button">Eliminar</a>
-           {% endif %}
-          {% endfor %}
-          
+           <button type="button" class="btn btn-light position-relative" data-bs-toggle="offcanvas"
+           data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+            <i class="far fa-comments"></i>
+          </button>
+          {% if id_user == admin %}
+          <a class="btn btn-danger" href="/borrar/{{idpublication}}" role="button">Eliminar</a>
+          {% endif %}
+        </div>
+        {% endfor %}   
             <!--Inicio de la barra canvas (aqui empiezan los comentarios xd)-->    
           <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
             aria-labelledby="offcanvasRightLabel">
@@ -83,9 +81,10 @@
             <div class="offcanvas-body">
               <!--Contenedor de comentarios en general-->
               <div class="container-comentarios">
+                {% for c in comentarios %}
                 <!--Comentarios principales-->
                 <div class="comentarios">
-                  {% for c in comentarios %}
+                 
                   <div class="fotoperfil">
                     <img src="/static/imagenes/usuario-imagen.jpg"
                       alt="">
@@ -101,21 +100,26 @@
               </div>   
             </div>
               {%endfor%}      
+           
+              
+              </div>
+             
+            </div>           
             {% if not isadmin%}
             <div class="escribircomentario">
               <div class="fotoescribircomentario"><img src="/static/imagenes/usuario-imagen.jpg" alt=""></div>
-              <div class="input-group mb-3">
-                <form action="/comentarios" method="post">
+              <div class="input-group mb-4">
+
+                <form action="/comentarios" method="POST">
                   {% for p in publication%}
-                <input type="hidden"  name="idpublication" value="{{p.idpublication}}">
+                <input type="hidden"  name="idpublication" value="{{p.idpublication}}"/>
                 {% endfor%}
-                 <input type="text" name="comentario">
-                 <input class="btn btn-primary" type="submit" value="Submit">
+                <div class="input-group mb-2">
+                <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" name="comentario">
+                 <input class="btn btn-outline-primary" type="submit" id="button-addon2" value="Submit">
+                </div>
               </form>
-              
-              </div>
-            </div>           
-          {%endif%}
+            {%endif%}
         </article>   
       </section>
       </section>

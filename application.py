@@ -52,8 +52,9 @@ def publication(idpublication):
     comentarios=db.execute("""SELECT u.username, c.comentario FROM comentarios as c INNER JOIN usuario as u ON  u.iduser=c.iduser WHERE idpublication=:idpublication ORDER BY c.idcometarios""", {"idpublication":idpublication}).fetchall()
     if admin == True:
         return render_template("formpublication.html", publication=publication, comentarios=comentarios, admin=admin)
-    else:                   
-        return render_template("formpublication.html", publication=publication, comentarios=comentarios)
+    else:  
+        flash("Comentario Publicado")                 
+        return render_template("index.html", publication=publication, comentarios=comentarios)
    
     
 @app.route("/comentarios", methods=["GET", "POST"])
@@ -73,11 +74,20 @@ def comentarios():
 
 @app.route("/borrar/<idpublication>", methods=["GET", "POST"])
 def borrar(idpublication):
+   username= session["username"] 
+   admin=db.execute("SELECT * FROM usuario WHERE username= :username",
+                     {"username" :username}).fetchone()[3]
    publication= request.form.get("idpublication")
-   eliminar=("DELETE FROM publication WHERE idpublication= :p.idpublication")
+   eliminar=("DELETE FROM publication WHERE idpublication = ?")
    db.commit()
-   flash("Publicacion borrada con exito!")
-   return(render_template("/"))
+   if admin == True:
+         flash("Publicacion borrada con exito!")
+         return render_template("index.html", admin=admin)
+   else: 
+         flash("Solicitud denegada")                  
+         return render_template("index.html")
+
+   
 
 @app.route("/galery")
 def galery():

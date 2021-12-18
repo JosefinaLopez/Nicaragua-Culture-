@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
 
 :root{
-    --background: linear-gradient(135deg, #388cdb65 0%, #d1e4f67a 100%);
+    --background: linear-gradient(135deg, #0648867e 0%, #3e86ca93 100%);
     --color-primary:#7287eb;
     --color-secundary:#fafafa;
     --boton-padding: 20px 40px;

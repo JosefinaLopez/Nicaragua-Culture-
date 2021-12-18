@@ -33,7 +33,7 @@ def index():
         username = session["username"]
         id_user = db.execute("SELECT iduser FROM usuario WHERE username = :username AND isadmin=True OR isadmin=False",
                           {"username" :username}).fetchone()[0]
-        publication = db.execute("SELECT titulo , shortcontent, longcontent , register_date FROM publication").fetchall()                 
+        publication = db.execute("SELECT idpublication,titulo , shortcontent, longcontent , register_date FROM publication").fetchall()                 
         return render_template("index.html", username= username, publication=publication) 
     else: 
         return render_template("login.html")
@@ -46,14 +46,14 @@ def salir():
 @app.route("/publication/<idpublication>", methods=["GET", "POST"])
 def publication(idpublication):
     username= session["username"]
-    admin=db.execute("SELECT *FROM usuario username=: username",
+    admin=db.execute("SELECT * FROM usuario WHERE username= :username",
                      {"username" :username}).fetchone()[3]
     publication=db.execute("SELECT * FROM publication WHERE idpublication=:idpublication",{"idpublication" :idpublication}).fetchall()
-    comentarios=db.execute("SELECT u.username, c.comentarios FROM comentarios as C INNER JOIN usuario as u ON  u.iduser=c.iduser WHERE idpublication=:idpublication ORDER BY c.idcomentarios", {"idpublication":idpublication}).fetchall()
+    comentarios=db.execute("""SELECT u.username, c.comentario FROM comentarios as c INNER JOIN usuario as u ON  u.iduser=c.iduser WHERE idpublication=:idpublication ORDER BY c.idcometarios""", {"idpublication":idpublication}).fetchall()
     if admin == True:
-        return render_template("publication.html", publication=publication, comentarios=comentarios, admin=admin)
+        return render_template("formpublication.html", publication=publication, comentarios=comentarios, admin=admin)
     else:                   
-        return render_template("publication.html", publication=publication, comentarios=comentarios)
+        return render_template("formpublication.html", publication=publication, comentarios=comentarios)
    
     
 @app.route("/comentarios", methods=["GET", "POST"])
@@ -71,7 +71,13 @@ def comentarios():
         p= "/publication/"+ id 
         return redirect(p)
 
-
+@app.route("/borrar/<idpublication>", methods=["GET", "POST"])
+def borrar(idpublication):
+   publication= request.form.get("idpublication")
+   eliminar=("DELETE FROM publication WHERE idpublication= :p.idpublication")
+   db.commit()
+   flash("Publicacion borrada con exito!")
+   return(render_template("/"))
 
 @app.route("/galery")
 def galery():

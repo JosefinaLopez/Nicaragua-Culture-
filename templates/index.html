@@ -4,7 +4,7 @@
    <style>
       body{
     background-image: url("/static/imagenes/fondoblog.jpeg");
-    background-size:550px;
+    background-size:530px;
     height: 100vh;
     
     
@@ -18,7 +18,7 @@
     position:relative;
 }  
    </style>
-  
+   
         <title>Nicaragua Culture</title>
     <body>
       <div class="hero">
@@ -29,14 +29,13 @@
           conocimiento"</h2>
         <a href="galery" class="hero_cta">Ver imagenes destacadas</a>
       </div>
+
     </section>
-
-
   <div class="hero_waves" style="overflow: hidden;"><svg viewBox="0 0 500 150"
       preserveAspectRatio="none" style="height: 100%; width: 100%;"><path
         d="M0.00,49.98 C149.99,150.00 349.20,-49.98 500.00,49.98 L500.00,150.00
         L0.00,150.00 Z" style="stroke: none; fill: rgba(117, 237, 241, 0.986);"></path></svg></div>
-  </div>      
+  </div>       
   <main>
   <!--Seccion del Post y Comentarios-->
   <section id="principal-post">
@@ -44,7 +43,7 @@
     <section id="publicaciones">
       <article class="post">
         <div class="shadow p-3 mb-1 bg-body rounded">
-         
+       
           <a href="/publication/{{p.idpublication}}" class="enlace-post"><h2>{{p.titulo}}</h2></a>
             <a href="#" class="titulo-post">{{p.register_date}}</a>
             <img src="/static/imagenes/simbolospatriosynacionales.png"
@@ -52,32 +51,27 @@
             <div class="card-body">
               <p class="parrafo-post">
                 {{p.shortcontent}}
+                print({{p.idpublication}})
               </p>
               <p>
                 {{p.longcontent}}
               </p>
           </div>
-           <!--Canvas y Reacciones-->
-            <!--corazon-->
-         <button class="ori"><i class="fas fa-heart"></i></i></button>
-          <script>
-            let btn = document.querySelector('button');
-            let classObj = {
-              ori: 'large',
-              large: 'ori'
-            }
-            
-            btn.addEventListener('click',()=>{
-              btn.classList = classObj[btn.classList[0]];
-            });
-          </script>
-
-           <button type="button" class="btn btn-light position-relative" data-bs-toggle="offcanvas"
-           data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-            <i class="far fa-comments"></i>
-          </button>
+           
         </div>
+        <!--Canvas y Reacciones-->
+            <!--corazon-->
+            <button class="ori"><i class="fas fa-heart"></i></i></button>
+
+            <button type="button" class="btn btn-light position-relative" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+             <i class="far fa-comments"></i>
+           </button>
+           {% if id_user == admin %}
+           <a class="btn btn-danger" href="/borrar/{{p.idpublication}}" role="button">Eliminar</a>
+           {% endif %}
           {% endfor %}
+          
             <!--Inicio de la barra canvas (aqui empiezan los comentarios xd)-->    
           <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
             aria-labelledby="offcanvasRightLabel">
@@ -90,8 +84,8 @@
               <!--Contenedor de comentarios en general-->
               <div class="container-comentarios">
                 <!--Comentarios principales-->
-                {% for c in comentarios%}
                 <div class="comentarios">
+                  {% for c in comentarios %}
                   <div class="fotoperfil">
                     <img src="/static/imagenes/usuario-imagen.jpg"
                       alt="">
@@ -101,11 +95,12 @@
                       <h4 class="title-coment">{{c.username}}</h4>
                       <h5 class="fecha-coment">{{c.fecha}}</h5>
                     </div>
-                    <p>{{c.comentarios}}</p>
                   </div>
+                  <p>{{c.comentarios}}</p>
                 </div>
-                {%endfor%}
-              </div>         
+              </div>   
+            </div>
+              {%endfor%}      
             {% if not isadmin%}
             <div class="escribircomentario">
               <div class="fotoescribircomentario"><img src="/static/imagenes/usuario-imagen.jpg" alt=""></div>
@@ -115,12 +110,12 @@
                 <input type="hidden"  name="idpublication" value="{{p.idpublication}}">
                 {% endfor%}
                  <input type="text" name="comentario">
-                <button type="submit">Enviar</button>
+                 <input class="btn btn-primary" type="submit" value="Submit">
               </form>
-              {%endif%}
+              
               </div>
             </div>           
-          </div>
+          {%endif%}
         </article>   
       </section>
       </section>

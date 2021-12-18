@@ -63,9 +63,27 @@
     }
   });
 </script>
+{% if get_flashed_messages() %}
+    <header>
+        <div class="alert alert-primary border text-center" role="alert">
+            {{ get_flashed_messages() | join(" ") }}
+        </div>
+    </header>
+{% endif %}
 {% block main %}
 {% endblock %}
 </header>
+<script>
+  let btn = document.querySelector('button');
+  let classObj = {
+    ori: 'large',
+    large: 'ori'
+  }
+  
+  btn.addEventListener('click',()=>{
+    btn.classList = classObj[btn.classList[0]];
+  });
+</script>
      <!-- JavaScript Bundle with Popper -->
      <script src="https://kit.fontawesome.com/9e43921ead.js" crossorigin="anonymous"></script>
      <!-- JavaScript Bundle with Popper -->
